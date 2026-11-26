@@ -1,0 +1,217 @@
+/* Civic Texas — waitlist page
+   Plain CSS, no build step. Colors are defined once here. */
+
+:root {
+  --paper: #f6f3ec;      /* warm limestone background */
+  --ink: #1b1d21;        /* body text */
+  --ink-soft: #4a4d54;   /* secondary text (8.0:1 on paper) */
+  --rule: #d9d3c6;       /* hairlines */
+  --accent: #8a3f14;     /* burnt sienna (7.0:1 on paper) */
+  --success: #23613a;
+  --error: #a3261b;
+  --focus: #1f5fbf;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --wrap: 68rem;
+  --gutter: 1rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 600; line-height: 1.1; margin: 0; }
+p { margin: 0; }
+
+a { color: var(--accent); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.5rem 0.75rem;
+  z-index: 10;
+}
+.skip-link:focus { top: 0.5rem; }
+
+/* Masthead */
+.masthead { border-bottom: 1px solid var(--ink); }
+.masthead__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.wordmark__star { width: 1.1rem; height: 1.1rem; fill: var(--accent); }
+.status-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Hero */
+.hero { padding-top: 3.5rem; padding-bottom: 2.5rem; }
+.hero h1 {
+  font-size: clamp(2.5rem, 8vw, 5.25rem);
+  letter-spacing: -0.015em;
+  max-width: 16ch;
+}
+.hero h1 span { display: block; color: var(--accent); }
+.dek {
+  margin-top: 1.5rem;
+  max-width: 38rem;
+  font-size: clamp(1.125rem, 2.4vw, 1.35rem);
+  color: var(--ink-soft);
+}
+
+/* Signup */
+.signup { padding-bottom: 3rem; }
+.signup__grid {
+  display: grid;
+  gap: 1.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+}
+.signup__intro h2 { font-size: clamp(1.75rem, 4vw, 2.25rem); }
+.signup__intro p { margin-top: 0.5rem; max-width: 30rem; }
+
+.signup__form label { display: block; font-weight: 600; margin-bottom: 0.4rem; }
+.field { display: flex; flex-direction: column; gap: 0.6rem; }
+
+input[type="email"] {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.7rem 0.85rem;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--ink-soft);
+  border-radius: 2px;
+}
+input[type="email"]::placeholder { color: #6b6e75; opacity: 1; }
+input[type="email"][aria-invalid="true"] { border-color: var(--error); border-width: 2px; }
+
+button {
+  min-height: 3rem;
+  padding: 0.7rem 1.25rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  cursor: pointer;
+}
+button:hover { background: var(--accent); border-color: var(--accent); }
+button:disabled { opacity: 0.7; cursor: progress; }
+
+.hint { margin-top: 0.6rem; font-size: 0.95rem; color: var(--ink-soft); }
+.form-status { margin-top: 0.4rem; font-weight: 600; min-height: 1.6em; }
+.form-status.is-success { color: var(--success); }
+.form-status.is-error { color: var(--error); }
+.privacy { margin-top: 0.75rem; font-size: 0.85rem; color: var(--ink-soft); max-width: 34rem; }
+
+.honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Plans */
+.plans { padding-top: 2.5rem; padding-bottom: 4rem; }
+.eyebrow {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--ink);
+}
+.plans__list {
+  list-style: none;
+  counter-reset: plan;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+.plans__list li {
+  counter-increment: plan;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.plans__list li::before {
+  content: counter(plan, decimal-leading-zero);
+  display: block;
+  font-family: var(--serif);
+  color: var(--accent);
+  font-size: 0.95rem;
+  margin-bottom: 0.35rem;
+}
+.plans__list h3 { font-size: 1.3rem; }
+.plans__list p { margin-top: 0.35rem; color: var(--ink-soft); }
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--ink);
+  padding: 2rem 0 2.5rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.footer p + p { margin-top: 0.75rem; }
+.footer strong { color: var(--ink); }
+
+/* Tablet and up */
+@media (min-width: 40rem) {
+  :root { --gutter: 2rem; }
+  .field { flex-direction: row; }
+  .field input { flex: 1; }
+  .field button { flex: none; }
+  .plans__list { grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+}
+
+/* Desktop */
+@media (min-width: 64rem) {
+  .hero { padding-top: 5rem; padding-bottom: 3.5rem; }
+  .signup__grid { grid-template-columns: 5fr 7fr; column-gap: 4rem; align-items: start; }
+  .plans__list { grid-template-columns: repeat(4, 1fr); }
+  .plans__list li { border-bottom: 0; padding-bottom: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Civic Texas — Texas legislation, made accessible</title>
+  <meta name="description" content="Civic Texas is an independent civic technology project making Texas legislation easier to follow and understand. Join the waitlist to hear when it launches.">
+  <meta name="theme-color" content="#f6f3ec">
+
+  <!-- Social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Civic Texas">
+  <meta property="og:title" content="Civic Texas — Texas legislation, made accessible">
+  <meta property="og:description" content="Follow state bills, understand what they mean, and take part in the conversations shaping Texas. Join the waitlist.">
+  <meta property="og:url" content="https://rockysahooart.github.io/civictexas/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Civic Texas — Texas legislation, made accessible">
+  <meta name="twitter:description" content="Follow state bills, understand what they mean, and take part in the conversations shaping Texas.">
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="wrap masthead__inner">
+      <p class="wordmark">
+        <svg class="wordmark__star" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 2.5l2.6 6.9 7.4.3-5.8 4.6 2 7.1L12 17.3l-6.2 4.1 2-7.1L2 9.7l7.4-.3z"/>
+        </svg>
+        Civic Texas
+      </p>
+      <p class="status-tag">Pre-launch</p>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="headline">
+      <h1 id="headline">Know what’s being passed. <span>Understand what it means.</span></h1>
+      <p class="dek">Texas legislation, made accessible. Follow state bills, understand what they mean, and participate in the conversations shaping our state.</p>
+    </section>
+
+    <section class="signup wrap" aria-labelledby="signup-heading">
+      <div class="signup__grid">
+      <div class="signup__intro">
+        <h2 id="signup-heading">Coming soon.</h2>
+        <p>Be among the first to experience a more accessible way to engage with Texas legislation.</p>
+      </div>
+
+      <form class="signup__form" id="waitlist-form" novalidate>
+        <label for="email">Email address</label>
+        <div class="field">
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email"
+                 placeholder="Your email address" required aria-describedby="form-hint form-status">
+          <button type="submit">Join the waitlist</button>
+        </div>
+        <!-- Spam trap: hidden from people, often filled in by bots. -->
+        <div class="honeypot" aria-hidden="true">
+          <label for="company">Leave this field empty</label>
+          <input id="company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <p id="form-hint" class="hint">Get notified when Civic Texas launches.</p>
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+        <p class="privacy">We’ll only use your email to send updates about the Civic Texas launch. We won’t sell or share it. Signups are handled by a third-party form service.</p>
+      </form>
+      </div>
+    </section>
+
+    <section class="plans wrap" aria-labelledby="plans-heading">
+      <h2 id="plans-heading" class="eyebrow">What we’re building</h2>
+      <ol class="plans__list">
+        <li>
+          <h3>Follow bills as they move</h3>
+          <p>Track state legislation from filing to final vote.</p>
+        </li>
+        <li>
+          <h3>Read the source</h3>
+          <p>Go straight to the original bill text and supporting documents.</p>
+        </li>
+        <li>
+          <h3>Plain-language summaries</h3>
+          <p>Accurate, neutral explanations of what a bill does and who it may affect.</p>
+        </li>
+        <li>
+          <h3>Join the conversation</h3>
+          <p>Share feedback and discuss legislation with other Texans.</p>
+        </li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p><strong>Civic Texas is an independent civic technology project.</strong> It is not affiliated with the State of Texas, the Texas Legislature, any government agency, or any political party.</p>
+      <p><a href="https://github.com/rockysahooart/civictexas">View the project on GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>

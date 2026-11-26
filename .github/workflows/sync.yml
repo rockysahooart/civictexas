@@ -1,0 +1,79 @@
+name: Sync legislative data
+
+# Incremental sync from the official Texas Legislative Council bulk files.
+# Frequency: edit the cron below. The source files are generally refreshed
+# once a day, so more than a few runs a day adds load without adding freshness.
+# Requires the repository secret DATABASE_URL (Supabase connection string).
+# Sessions: repository variable SYNC_SESSIONS (space-separated, default "90R").
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      session:
+        description: "Session code (e.g. 90R)"
+        required: true
+        default: "90R"
+      mode:
+        description: "sample, incremental or full"
+        required: true
+        default: "incremental"
+        type: choice
+        options: [sample, incremental, full]
+      limit:
+        description: "Max bills for full mode"
+        required: false
+        default: "200"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legislative-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check configuration
+        id: config
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: |
+          if [ -z "$DATABASE_URL" ]; then
+            echo "DATABASE_URL secret is not set; skipping sync."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.config.outputs.enabled == 'true'
+      - uses: actions/setup-python@v5
+        if: steps.config.outputs.enabled == 'true'
+        with:
+          python-version: "3.12"
+      - if: steps.config.outputs.enabled == 'true'
+        run: pip install -r ingestion/requirements.txt
+      - name: Sync
+        if: steps.config.outputs.enabled == 'true'
+        working-directory: ingestion
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SYNC_MIN_INTERVAL_MINUTES: "60"
+          INGEST_REQUEST_INTERVAL_SECONDS: "1.0"
+          EVENT: ${{ github.event_name }}
+          SESSION: ${{ inputs.session }}
+          MODE: ${{ inputs.mode }}
+          LIMIT: ${{ inputs.limit }}
+          SESSIONS: ${{ vars.SYNC_SESSIONS || '90R' }}
+        run: |
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            python -m civictexas_ingest sync --session "$SESSION" --mode "$MODE" --limit "$LIMIT" --force
+          else
+            for session in $SESSIONS; do
+              python -m civictexas_ingest sync --session "$session" --mode incremental
+            done
+          fi

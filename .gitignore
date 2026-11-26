@@ -11,8 +11,19 @@ Thumbs.db
 .env
 .env.*
 
+
 # Logs
 *.log
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# Local database and tooling
+.local/
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+.next/
+*.tsbuildinfo
+!.env.example
